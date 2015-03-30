@@ -9,10 +9,15 @@
 import UIKit
 import Realm
 
+protocol AddViewControllerDelegate {
+    func didFinishTypingText(typedText: String?)
+}
+
 class AddViewController: UIViewController, UITextFieldDelegate {
     
     var textField: UITextField?
     var newItemText: String?
+    var delegate: AddViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,14 +53,7 @@ class AddViewController: UIViewController, UITextFieldDelegate {
     }
 
     func doneAction() {
-        let realm = RLMRealm.defaultRealm()
-        if self.textField?.text.utf16Count > 0 {
-            let newOne = ToDoItem()
-            newOne.name = self.textField!.text
-            realm.transactionWithBlock({ () -> Void in
-                realm.addObject(newOne)
-            })
-        }
+        delegate?.didFinishTypingText(textField?.text)
         dismissViewControllerAnimated(true, completion: nil)
     }
     

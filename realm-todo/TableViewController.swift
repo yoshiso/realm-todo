@@ -9,7 +9,7 @@
 import UIKit
 import Realm
 
-class TableViewController: UITableViewController {
+class TableViewController: UITableViewController, AddViewControllerDelegate {
     
     var todos: RLMResults {
         get {
@@ -43,6 +43,7 @@ class TableViewController: UITableViewController {
     
     func addButtonAction() {
         let addvc = AddViewController()
+        addvc.delegate = self
         let nc = UINavigationController(rootViewController: addvc)
         presentViewController(nc, animated: true, completion: nil)
     }
@@ -125,7 +126,18 @@ class TableViewController: UITableViewController {
         return cell
     }
     
-
+    func didFinishTypingText(typedText: String?) {
+        let realm = RLMRealm.defaultRealm()
+        
+        if typedText?.utf16Count > 0 {
+            let newOne = ToDoItem()
+            newOne.name = typedText!
+            realm.transactionWithBlock({ () -> Void in
+                realm.addObject(newOne)
+            })
+        }
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
