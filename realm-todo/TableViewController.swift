@@ -13,7 +13,15 @@ class TableViewController: UITableViewController {
     
     var todos: RLMResults {
         get {
-            return ToDoItem.allObjects()
+            let predicate = NSPredicate(format: "finished == false", argumentArray: nil)
+            return ToDoItem.objectsWithPredicate(predicate)
+        }
+    }
+    
+    var finished: RLMResults {
+        get {
+            let predicate = NSPredicate(format: "finished == true", argumentArray: nil)
+            return ToDoItem.objectsWithPredicate(predicate)
         }
     }
     
@@ -52,21 +60,67 @@ class TableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
 
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Int(todos.count)
+        switch section {
+        case 0:
+            return Int(todos.count)
+        case 1:
+            return Int(finished.count)
+        default:
+            return 0
+        }
     }
-
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section{
+        case 0:
+            return "TODO"
+        case 1:
+            return "FINISHED"
+        default:
+            return ""
+        }
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        var todoItem: ToDoItem?
+        switch indexPath.section {
+        case 0:
+            todoItem = todos.objectAtIndex(UInt(indexPath.row)) as? ToDoItem
+        case 1:
+            todoItem = finished.objectAtIndex(UInt(indexPath.row)) as? ToDoItem
+        default:
+            fatalError("fuckin err")
+        }
+        
+        let realm = RLMRealm.defaultRealm()
+        realm.beginWriteTransaction()
+        todoItem?.finished = !todoItem!.finished
+        realm.commitWriteTransaction()
+        tableView.reloadData()
+    }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("CellID", forIndexPath: indexPath) as UITableViewCell
         
-        let index = UInt(indexPath.row)
-        let todoItem = todos.objectAtIndex(index) as ToDoItem
-        
-        cell.textLabel!.text = todoItem.name
+        switch indexPath.section {
+        case 0:
+            let todo = todos.objectAtIndex(UInt(indexPath.row)) as ToDoItem
+            var attrTxt = NSMutableAttributedString(string: todo.name)
+            attrTxt.addAttribute(NSStrikethroughStyleAttributeName, value: 0, range: NSMakeRange(0, attrTxt.length))
+            cell.textLabel?.attributedText = attrTxt
+        case 1:
+            let todo = finished.objectAtIndex(UInt(indexPath.row)) as ToDoItem
+            var attrTxt = NSMutableAttributedString(string: todo.name)
+            attrTxt.addAttribute(NSStrikethroughStyleAttributeName, value: 1, range: NSMakeRange(0, attrTxt.length))
+            cell.textLabel?.attributedText = attrTxt
+        default:
+          fatalError("Fuck")
+        }
         
         return cell
     }
