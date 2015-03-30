@@ -15,7 +15,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        window?.backgroundColor = UIColor.whiteColor()
+
+        
+        let vc = TableViewController()
+        let nc = UINavigationController(rootViewController: vc)
+        
+        window?.rootViewController = nc
+        window?.makeKeyAndVisible()
+        
         return true
     }
 
