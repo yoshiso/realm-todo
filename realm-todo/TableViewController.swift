@@ -11,6 +11,8 @@ import Realm
 
 class TableViewController: UITableViewController, AddViewControllerDelegate {
     
+    var token: RLMNotificationToken?
+    
     var todos: RLMResults {
         get {
             let predicate = NSPredicate(format: "finished == false", argumentArray: nil)
@@ -30,11 +32,17 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
         
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "CellID")
         setupNavigationBar()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        self.token = RLMRealm.defaultRealm().addNotificationBlock({ (note, realm) -> Void in
+            self.tableView.reloadData()
+            println("TABLE RELOADED")
+        })
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        RLMRealm.defaultRealm().removeNotification(self.token)
+        println("TableViewController willDisappear")
     }
     
     func setupNavigationBar() {
@@ -102,7 +110,6 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
         realm.beginWriteTransaction()
         todoItem?.finished = !todoItem!.finished
         realm.commitWriteTransaction()
-        tableView.reloadData()
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
