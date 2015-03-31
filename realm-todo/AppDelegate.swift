@@ -7,14 +7,29 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
+import Realm
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        // Migration
+        RLMRealm.setSchemaVersion(1, forRealmAtPath: RLMRealm.defaultRealmPath(),
+            withMigrationBlock: { migration, oldSchemaVersion in
+                // We haven’t migrated anything yet, so oldSchemaVersion == 0
+                if oldSchemaVersion < 1 {
+                    var index: Int = 0
+                    migration.enumerateObjects(ToDoItem.className()) { oldObject, newObject in
+                        index += 1
+                        newObject["id"] = index
+                    }
+                }
+        })
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         window?.backgroundColor = UIColor.whiteColor()
@@ -25,6 +40,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window?.rootViewController = nc
         window?.makeKeyAndVisible()
+        
+       Api.TodoItem.Read("myName").responseJSON { (req, res, json, err) -> Void in
+            var json = json as Array<Dictionary<String, AnyObject>>
+            let realm = RLMRealm.defaultRealm()
+            realm.beginWriteTransaction()
+            for item in json {
+                ToDoItem.createOrUpdateInDefaultRealmWithObject(item)
+            }
+            realm.commitWriteTransaction()
+        }
         
         return true
     }
