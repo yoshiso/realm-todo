@@ -20,13 +20,15 @@
 		353DF1E31AC993CF001BDF01 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 353DF1E21AC993CF001BDF01 /* libc++.dylib */; };
 		353DF1E51AC9943A001BDF01 /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353DF1E41AC9943A001BDF01 /* ToDoItem.swift */; };
 		353DF1E71AC99664001BDF01 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353DF1E61AC99664001BDF01 /* AddViewController.swift */; };
-		35A63FB51ACAAF4C005BA8EB /* SwiftTask.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35A63FAE1ACAAF36005BA8EB /* SwiftTask.framework */; };
-		35A63FB61ACAAF4C005BA8EB /* SwiftTask.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 35A63FAE1ACAAF36005BA8EB /* SwiftTask.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		35A63FF21ACADA19005BA8EB /* SwiftTask.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35A63FAE1ACAAF36005BA8EB /* SwiftTask.framework */; };
+		35A63FF31ACADA19005BA8EB /* SwiftTask.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 35A63FAE1ACAAF36005BA8EB /* SwiftTask.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		35A63FF61ACADA33005BA8EB /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35EA5ED11ACA5952007DD040 /* SwiftyJSON.framework */; };
+		35A63FF71ACADA33005BA8EB /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 35EA5ED11ACA5952007DD040 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		35A63FFA1ACADA39005BA8EB /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35EA5EC11ACA58CC007DD040 /* Alamofire.framework */; };
+		35A63FFB1ACADA39005BA8EB /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 35EA5EC11ACA58CC007DD040 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		35EA5EA71ACA4953007DD040 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35EA5EA61ACA4953007DD040 /* Realm.framework */; };
 		35EA5EA81ACA4975007DD040 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35EA5EA61ACA4953007DD040 /* Realm.framework */; };
 		35EA5EA91ACA4A2D007DD040 /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353DF1E41AC9943A001BDF01 /* ToDoItem.swift */; };
-		35EA5EC81ACA58ED007DD040 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35EA5EC11ACA58CC007DD040 /* Alamofire.framework */; };
-		35EA5ED81ACA5959007DD040 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35EA5ED11ACA5952007DD040 /* SwiftyJSON.framework */; };
 		35EA5EDA1ACA60FF007DD040 /* api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EA5ED91ACA60FF007DD040 /* api.swift */; };
 		35EA5EDB1ACA60FF007DD040 /* api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EA5ED91ACA60FF007DD040 /* api.swift */; };
 /* End PBXBuildFile section */
@@ -137,12 +139,47 @@
 			remoteGlobalIDString = 4822F0D019D00ABF00F5F572;
 			remoteInfo = "SwiftTask-iOSTests";
 		};
-		35A63FB71ACAAF4C005BA8EB /* PBXContainerItemProxy */ = {
+		35A63FDD1ACAD8A2005BA8EB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 35A63F941ACAAF36005BA8EB /* SwiftTask.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 48CD5A0B19AEE3570042B9F1;
 			remoteInfo = "SwiftTask-iOS";
+		};
+		35A63FDF1ACAD8A7005BA8EB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 35EA5EC91ACA5952007DD040 /* SwiftyJSON.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2E4FEFDA19575BE100351305;
+			remoteInfo = "SwiftyJSON iOS";
+		};
+		35A63FE11ACAD8AC005BA8EB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 35EA5EB91ACA58CC007DD040 /* Alamofire.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F8111E3219A95C8B0040E7D1;
+			remoteInfo = "Alamofire iOS";
+		};
+		35A63FF41ACADA19005BA8EB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 35A63F941ACAAF36005BA8EB /* SwiftTask.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 48CD5A0B19AEE3570042B9F1;
+			remoteInfo = "SwiftTask-iOS";
+		};
+		35A63FF81ACADA33005BA8EB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 35EA5EC91ACA5952007DD040 /* SwiftyJSON.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2E4FEFDA19575BE100351305;
+			remoteInfo = "SwiftyJSON iOS";
+		};
+		35A63FFC1ACADA39005BA8EB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 35EA5EB91ACA58CC007DD040 /* Alamofire.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F8111E3219A95C8B0040E7D1;
+			remoteInfo = "Alamofire iOS";
 		};
 		35EA5EC01ACA58CC007DD040 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -209,7 +246,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				35A63FB61ACAAF4C005BA8EB /* SwiftTask.framework in Embed Frameworks */,
+				35A63FF71ACADA33005BA8EB /* SwiftyJSON.framework in Embed Frameworks */,
+				35A63FFB1ACADA39005BA8EB /* Alamofire.framework in Embed Frameworks */,
+				35A63FF31ACADA19005BA8EB /* SwiftTask.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -248,12 +287,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				35EA5ED81ACA5959007DD040 /* SwiftyJSON.framework in Frameworks */,
-				35EA5EC81ACA58ED007DD040 /* Alamofire.framework in Frameworks */,
 				35EA5EA71ACA4953007DD040 /* Realm.framework in Frameworks */,
-				35A63FB51ACAAF4C005BA8EB /* SwiftTask.framework in Frameworks */,
+				35A63FFA1ACADA39005BA8EB /* Alamofire.framework in Frameworks */,
 				353DF1E31AC993CF001BDF01 /* libc++.dylib in Frameworks */,
+				35A63FF21ACADA19005BA8EB /* SwiftTask.framework in Frameworks */,
 				1C15E347B61702AEF25C7BBA /* libPods.a in Frameworks */,
+				35A63FF61ACADA33005BA8EB /* SwiftyJSON.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,7 +469,12 @@
 			buildRules = (
 			);
 			dependencies = (
-				35A63FB81ACAAF4C005BA8EB /* PBXTargetDependency */,
+				35A63FE21ACAD8AC005BA8EB /* PBXTargetDependency */,
+				35A63FE01ACAD8A7005BA8EB /* PBXTargetDependency */,
+				35A63FDE1ACAD8A2005BA8EB /* PBXTargetDependency */,
+				35A63FF51ACADA19005BA8EB /* PBXTargetDependency */,
+				35A63FF91ACADA33005BA8EB /* PBXTargetDependency */,
+				35A63FFD1ACADA39005BA8EB /* PBXTargetDependency */,
 			);
 			name = "realm-todo";
 			productName = "realm-todo";
@@ -756,10 +800,35 @@
 			target = 353DF1B61AC99289001BDF01 /* realm-todo */;
 			targetProxy = 353DF1CD1AC99289001BDF01 /* PBXContainerItemProxy */;
 		};
-		35A63FB81ACAAF4C005BA8EB /* PBXTargetDependency */ = {
+		35A63FDE1ACAD8A2005BA8EB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "SwiftTask-iOS";
-			targetProxy = 35A63FB71ACAAF4C005BA8EB /* PBXContainerItemProxy */;
+			targetProxy = 35A63FDD1ACAD8A2005BA8EB /* PBXContainerItemProxy */;
+		};
+		35A63FE01ACAD8A7005BA8EB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "SwiftyJSON iOS";
+			targetProxy = 35A63FDF1ACAD8A7005BA8EB /* PBXContainerItemProxy */;
+		};
+		35A63FE21ACAD8AC005BA8EB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Alamofire iOS";
+			targetProxy = 35A63FE11ACAD8AC005BA8EB /* PBXContainerItemProxy */;
+		};
+		35A63FF51ACADA19005BA8EB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "SwiftTask-iOS";
+			targetProxy = 35A63FF41ACADA19005BA8EB /* PBXContainerItemProxy */;
+		};
+		35A63FF91ACADA33005BA8EB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "SwiftyJSON iOS";
+			targetProxy = 35A63FF81ACADA33005BA8EB /* PBXContainerItemProxy */;
+		};
+		35A63FFD1ACADA39005BA8EB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Alamofire iOS";
+			targetProxy = 35A63FFC1ACADA39005BA8EB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -817,7 +886,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -854,7 +923,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -911,6 +980,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "realm-todoTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/realm-todo.app/realm-todo";
@@ -928,6 +998,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "realm-todoTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/realm-todo.app/realm-todo";
