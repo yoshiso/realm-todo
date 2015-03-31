@@ -10,12 +10,35 @@ import SwiftTask
 import SwiftyJSON
 import Realm
 
+public typealias ActionTask = Task<Int,AnyObject,NSError>
+
 public protocol ActionProtocol {
-    func dispatch() -> Task<Int,AnyObject,NSError>
+    func dispatch() -> ActionTask
 }
 
 class Actions {
     
+    class ReadTodos {
+        
+        func dispatch() -> ActionTask {
+            println("Actions.ReadTodos#dispatch")
+            return ActionTask { (progress, fulfill, reject, configure) -> Void in
+                Api.TodoItem.Read("myName").success { (value: JSON?) -> Void in
+                    var json = value?.arrayObject as [[String: AnyObject]]
+                    let realm = RLMRealm.defaultRealm()
+                    realm.beginWriteTransaction()
+                    for item in json {
+                        ToDoItem.createOrUpdateInDefaultRealmWithObject(item)
+                    }
+                    realm.commitWriteTransaction()
+                }.failure { (error, isCancelled) -> Void in
+                        return
+                }
+                return
+            }
+        }
+        
+    }
     
     class CreateTodo: ActionProtocol {
         
@@ -25,8 +48,9 @@ class Actions {
             self.name = name
         }
         
-        func dispatch() -> Task<Int, AnyObject, NSError> {
-            return Task<Int,AnyObject,NSError>{ (progress, fulfill, reject, configure) in
+        func dispatch() -> ActionTask {
+            println("Actions.CreateTodo#dispatch")
+            return ActionTask{ (progress, fulfill, reject, configure) in
                 let realm = RLMRealm.defaultRealm()
                     
                 // init

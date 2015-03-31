@@ -27,12 +27,12 @@ class Api {
         return ApiRequest {(progress, fulfill, reject, configure) in
             let alam = Alamofire.request(URLRequest).responseJSON({ (req, res, data, err) -> Void in
                 if let err = err {
-                    println("\(err)")
+                    println("ERROR: \(err)")
                     reject(err)
                     return
                 }
                 let json = JSON(data!)
-                println("Response")
+                println("Response: ")
                 println(json)
                 fulfill(json)
             })

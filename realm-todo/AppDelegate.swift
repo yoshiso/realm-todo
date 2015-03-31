@@ -41,21 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = nc
         window?.makeKeyAndVisible()
         
-        Api.TodoItem.Update("username", params:["myName" : "test"]).then { (value: JSON?, _) -> Void in
-        }.failure{ (error, isCanceled) -> Void in
-        }
-
-        Api.TodoItem.Read("myName").then { (value: JSON?, _) -> Void in
-            var json = value?.arrayObject as Array<Dictionary<String,AnyObject>>
-            let realm = RLMRealm.defaultRealm()
-            realm.beginWriteTransaction()
-            for item in json {
-                ToDoItem.createOrUpdateInDefaultRealmWithObject(item)
-            }
-            realm.commitWriteTransaction()
-        }.failure { (error, isCancelled) -> Void in
-            return
-        }
+        Actions.ReadTodos().dispatch()
         
         return true
     }
