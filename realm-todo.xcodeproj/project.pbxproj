@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C15E347B61702AEF25C7BBA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 032E2AB04D54E464E2FE42B7 /* libPods.a */; };
 		3532B6BE1ACA43F9008E0F5E /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3532B6A21ACA43DE008E0F5E /* Nimble.framework */; };
 		3532B6BF1ACA43F9008E0F5E /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3532B6B31ACA43EC008E0F5E /* Quick.framework */; };
 		353DF1BD1AC99289001BDF01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353DF1BC1AC99289001BDF01 /* AppDelegate.swift */; };
@@ -19,6 +20,8 @@
 		353DF1E31AC993CF001BDF01 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 353DF1E21AC993CF001BDF01 /* libc++.dylib */; };
 		353DF1E51AC9943A001BDF01 /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353DF1E41AC9943A001BDF01 /* ToDoItem.swift */; };
 		353DF1E71AC99664001BDF01 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353DF1E61AC99664001BDF01 /* AddViewController.swift */; };
+		35A63FB51ACAAF4C005BA8EB /* SwiftTask.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35A63FAE1ACAAF36005BA8EB /* SwiftTask.framework */; };
+		35A63FB61ACAAF4C005BA8EB /* SwiftTask.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 35A63FAE1ACAAF36005BA8EB /* SwiftTask.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		35EA5EA71ACA4953007DD040 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35EA5EA61ACA4953007DD040 /* Realm.framework */; };
 		35EA5EA81ACA4975007DD040 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35EA5EA61ACA4953007DD040 /* Realm.framework */; };
 		35EA5EA91ACA4A2D007DD040 /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353DF1E41AC9943A001BDF01 /* ToDoItem.swift */; };
@@ -106,6 +109,41 @@
 			remoteGlobalIDString = 353DF1B61AC99289001BDF01;
 			remoteInfo = "realm-todo";
 		};
+		35A63FA91ACAAF36005BA8EB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 35A63F941ACAAF36005BA8EB /* SwiftTask.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1F46DED4199EDF1000F97868;
+			remoteInfo = "SwiftTask-OSX";
+		};
+		35A63FAB1ACAAF36005BA8EB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 35A63F941ACAAF36005BA8EB /* SwiftTask.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1F46DEDF199EDF1000F97868;
+			remoteInfo = "SwiftTask-OSXTests";
+		};
+		35A63FAD1ACAAF36005BA8EB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 35A63F941ACAAF36005BA8EB /* SwiftTask.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 48CD5A0C19AEE3570042B9F1;
+			remoteInfo = "SwiftTask-iOS";
+		};
+		35A63FAF1ACAAF36005BA8EB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 35A63F941ACAAF36005BA8EB /* SwiftTask.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4822F0D019D00ABF00F5F572;
+			remoteInfo = "SwiftTask-iOSTests";
+		};
+		35A63FB71ACAAF4C005BA8EB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 35A63F941ACAAF36005BA8EB /* SwiftTask.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 48CD5A0B19AEE3570042B9F1;
+			remoteInfo = "SwiftTask-iOS";
+		};
 		35EA5EC01ACA58CC007DD040 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 35EA5EB91ACA58CC007DD040 /* Alamofire.xcodeproj */;
@@ -164,7 +202,22 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		35A63FB91ACAAF4D005BA8EB /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				35A63FB61ACAAF4C005BA8EB /* SwiftTask.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		032E2AB04D54E464E2FE42B7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3532B69A1ACA43DE008E0F5E /* Nimble.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Nimble.xcodeproj; path = Vendor/Nimble/Nimble.xcodeproj; sourceTree = SOURCE_ROOT; };
 		3532B6A91ACA43EB008E0F5E /* Quick.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Quick.xcodeproj; path = Vendor/Quick/Quick.xcodeproj; sourceTree = SOURCE_ROOT; };
 		353DF1B71AC99289001BDF01 /* realm-todo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "realm-todo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -181,10 +234,13 @@
 		353DF1E21AC993CF001BDF01 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		353DF1E41AC9943A001BDF01 /* ToDoItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoItem.swift; sourceTree = "<group>"; };
 		353DF1E61AC99664001BDF01 /* AddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
+		35A63F941ACAAF36005BA8EB /* SwiftTask.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftTask.xcodeproj; path = Vendor/SwiftTask/SwiftTask.xcodeproj; sourceTree = "<group>"; };
 		35EA5EA61ACA4953007DD040 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		35EA5EB91ACA58CC007DD040 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Vendor/Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		35EA5EC91ACA5952007DD040 /* SwiftyJSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftyJSON.xcodeproj; path = Vendor/SwiftyJSON/SwiftyJSON.xcodeproj; sourceTree = "<group>"; };
 		35EA5ED91ACA60FF007DD040 /* api.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = api.swift; sourceTree = "<group>"; };
+		4DD24C941E4A7EEE32787BAD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		7ECE6BD9495D6A8C978877C7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,7 +251,9 @@
 				35EA5ED81ACA5959007DD040 /* SwiftyJSON.framework in Frameworks */,
 				35EA5EC81ACA58ED007DD040 /* Alamofire.framework in Frameworks */,
 				35EA5EA71ACA4953007DD040 /* Realm.framework in Frameworks */,
+				35A63FB51ACAAF4C005BA8EB /* SwiftTask.framework in Frameworks */,
 				353DF1E31AC993CF001BDF01 /* libc++.dylib in Frameworks */,
+				1C15E347B61702AEF25C7BBA /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,6 +297,7 @@
 		353DF1AE1AC99289001BDF01 = {
 			isa = PBXGroup;
 			children = (
+				35A63F941ACAAF36005BA8EB /* SwiftTask.xcodeproj */,
 				35EA5EC91ACA5952007DD040 /* SwiftyJSON.xcodeproj */,
 				35EA5EB91ACA58CC007DD040 /* Alamofire.xcodeproj */,
 				353DF1E21AC993CF001BDF01 /* libc++.dylib */,
@@ -246,6 +305,8 @@
 				353DF1B91AC99289001BDF01 /* realm-todo */,
 				353DF1CF1AC99289001BDF01 /* realm-todoTests */,
 				353DF1B81AC99289001BDF01 /* Products */,
+				8C4235108AB156F3728EBAAF /* Pods */,
+				DD1F2627284C614B5BC0750E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -302,6 +363,17 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		35A63F951ACAAF36005BA8EB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				35A63FAA1ACAAF36005BA8EB /* SwiftTask.framework */,
+				35A63FAC1ACAAF36005BA8EB /* SwiftTask-OSXTests.xctest */,
+				35A63FAE1ACAAF36005BA8EB /* SwiftTask.framework */,
+				35A63FB01ACAAF36005BA8EB /* SwiftTask-iOSTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		35EA5EBA1ACA58CC007DD040 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -324,6 +396,23 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		8C4235108AB156F3728EBAAF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7ECE6BD9495D6A8C978877C7 /* Pods.debug.xcconfig */,
+				4DD24C941E4A7EEE32787BAD /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		DD1F2627284C614B5BC0750E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				032E2AB04D54E464E2FE42B7 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -331,13 +420,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 353DF1D61AC99289001BDF01 /* Build configuration list for PBXNativeTarget "realm-todo" */;
 			buildPhases = (
+				D953386D361D6033901CDA4B /* Check Pods Manifest.lock */,
 				353DF1B31AC99289001BDF01 /* Sources */,
 				353DF1B41AC99289001BDF01 /* Frameworks */,
 				353DF1B51AC99289001BDF01 /* Resources */,
+				F371A8DB41928F840736F8FE /* Copy Pods Resources */,
+				35A63FB91ACAAF4D005BA8EB /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				35A63FB81ACAAF4C005BA8EB /* PBXTargetDependency */,
 			);
 			name = "realm-todo";
 			productName = "realm-todo";
@@ -403,6 +496,10 @@
 				{
 					ProductGroup = 3532B6AA1ACA43EB008E0F5E /* Products */;
 					ProjectRef = 3532B6A91ACA43EB008E0F5E /* Quick.xcodeproj */;
+				},
+				{
+					ProductGroup = 35A63F951ACAAF36005BA8EB /* Products */;
+					ProjectRef = 35A63F941ACAAF36005BA8EB /* SwiftTask.xcodeproj */;
 				},
 				{
 					ProductGroup = 35EA5ECA1ACA5952007DD040 /* Products */;
@@ -488,6 +585,34 @@
 			remoteRef = 3532B6BC1ACA43EC008E0F5E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		35A63FAA1ACAAF36005BA8EB /* SwiftTask.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwiftTask.framework;
+			remoteRef = 35A63FA91ACAAF36005BA8EB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		35A63FAC1ACAAF36005BA8EB /* SwiftTask-OSXTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "SwiftTask-OSXTests.xctest";
+			remoteRef = 35A63FAB1ACAAF36005BA8EB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		35A63FAE1ACAAF36005BA8EB /* SwiftTask.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwiftTask.framework;
+			remoteRef = 35A63FAD1ACAAF36005BA8EB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		35A63FB01ACAAF36005BA8EB /* SwiftTask-iOSTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "SwiftTask-iOSTests.xctest";
+			remoteRef = 35A63FAF1ACAAF36005BA8EB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		35EA5EC11ACA58CC007DD040 /* Alamofire.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -566,6 +691,39 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		D953386D361D6033901CDA4B /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F371A8DB41928F840736F8FE /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		353DF1B31AC99289001BDF01 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -597,6 +755,11 @@
 			isa = PBXTargetDependency;
 			target = 353DF1B61AC99289001BDF01 /* realm-todo */;
 			targetProxy = 353DF1CD1AC99289001BDF01 /* PBXContainerItemProxy */;
+		};
+		35A63FB81ACAAF4C005BA8EB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "SwiftTask-iOS";
+			targetProxy = 35A63FB71ACAAF4C005BA8EB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -701,8 +864,10 @@
 		};
 		353DF1D71AC99289001BDF01 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7ECE6BD9495D6A8C978877C7 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/realm-todo",
@@ -716,8 +881,10 @@
 		};
 		353DF1D81AC99289001BDF01 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DD24C941E4A7EEE32787BAD /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/realm-todo",

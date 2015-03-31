@@ -12,3 +12,6 @@
 [submodule "Vendor/SwiftyJSON"]
 	path = Vendor/SwiftyJSON
 	url = https://github.com/SwiftyJSON/SwiftyJSON.git
+[submodule "Vendor/SwiftTask"]
+	path = Vendor/SwiftTask
+	url = https://github.com/ReactKit/SwiftTask.git
