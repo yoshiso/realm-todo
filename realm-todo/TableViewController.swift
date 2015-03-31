@@ -9,7 +9,7 @@
 import UIKit
 import Realm
 
-class TableViewController: UITableViewController, AddViewControllerDelegate {
+class TableViewController: UITableViewController {
     
     var token: RLMNotificationToken?
     
@@ -32,7 +32,10 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
         
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "CellID")
         setupNavigationBar()
-        
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         self.token = RLMRealm.defaultRealm().addNotificationBlock({ (note, realm) -> Void in
             self.tableView.reloadData()
             println("TABLE RELOADED")
@@ -51,7 +54,6 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
     
     func addButtonAction() {
         let addvc = AddViewController()
-        addvc.delegate = self
         let nc = UINavigationController(rootViewController: addvc)
         presentViewController(nc, animated: true, completion: nil)
     }
@@ -133,17 +135,6 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
         return cell
     }
     
-    func didFinishTypingText(typedText: String?) {
-        let realm = RLMRealm.defaultRealm()
-        
-        if typedText?.utf16Count > 0 {
-            let newOne = ToDoItem()
-            newOne.name = typedText!
-            realm.transactionWithBlock({ () -> Void in
-                realm.addObject(newOne)
-            })
-        }
-    }
     
     /*
     // Override to support conditional editing of the table view.

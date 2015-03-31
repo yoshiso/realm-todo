@@ -7,17 +7,11 @@
 //
 
 import UIKit
-import Realm
-
-protocol AddViewControllerDelegate {
-    func didFinishTypingText(typedText: String?)
-}
 
 class AddViewController: UIViewController, UITextFieldDelegate {
     
     var textField: UITextField?
     var newItemText: String?
-    var delegate: AddViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +47,12 @@ class AddViewController: UIViewController, UITextFieldDelegate {
     }
 
     func doneAction() {
-        delegate?.didFinishTypingText(textField?.text)
+        let typedText = textField?.text
+        
+        if typedText?.utf16Count > 0 {
+            Actions.CreateTodo(name: typedText!).dispatch()
+        }
+        
         dismissViewControllerAnimated(true, completion: nil)
     }
     

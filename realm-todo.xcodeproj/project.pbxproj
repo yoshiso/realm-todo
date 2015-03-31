@@ -26,6 +26,7 @@
 		35A63FF71ACADA33005BA8EB /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 35EA5ED11ACA5952007DD040 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		35A63FFA1ACADA39005BA8EB /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35EA5EC11ACA58CC007DD040 /* Alamofire.framework */; };
 		35A63FFB1ACADA39005BA8EB /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 35EA5EC11ACA58CC007DD040 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		35A63FFF1ACADD9C005BA8EB /* actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A63FFE1ACADD9C005BA8EB /* actions.swift */; };
 		35EA5EA71ACA4953007DD040 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35EA5EA61ACA4953007DD040 /* Realm.framework */; };
 		35EA5EA81ACA4975007DD040 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35EA5EA61ACA4953007DD040 /* Realm.framework */; };
 		35EA5EA91ACA4A2D007DD040 /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353DF1E41AC9943A001BDF01 /* ToDoItem.swift */; };
@@ -274,6 +275,7 @@
 		353DF1E41AC9943A001BDF01 /* ToDoItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoItem.swift; sourceTree = "<group>"; };
 		353DF1E61AC99664001BDF01 /* AddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		35A63F941ACAAF36005BA8EB /* SwiftTask.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftTask.xcodeproj; path = Vendor/SwiftTask/SwiftTask.xcodeproj; sourceTree = "<group>"; };
+		35A63FFE1ACADD9C005BA8EB /* actions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = actions.swift; sourceTree = "<group>"; };
 		35EA5EA61ACA4953007DD040 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		35EA5EB91ACA58CC007DD040 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Vendor/Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		35EA5EC91ACA5952007DD040 /* SwiftyJSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftyJSON.xcodeproj; path = Vendor/SwiftyJSON/SwiftyJSON.xcodeproj; sourceTree = "<group>"; };
@@ -371,6 +373,7 @@
 				353DF1BA1AC99289001BDF01 /* Supporting Files */,
 				353DF1E41AC9943A001BDF01 /* ToDoItem.swift */,
 				35EA5ED91ACA60FF007DD040 /* api.swift */,
+				35A63FFE1ACADD9C005BA8EB /* actions.swift */,
 			);
 			path = "realm-todo";
 			sourceTree = "<group>";
@@ -778,6 +781,7 @@
 				353DF1E11AC993BE001BDF01 /* TableViewController.swift in Sources */,
 				353DF1E51AC9943A001BDF01 /* ToDoItem.swift in Sources */,
 				35EA5EDA1ACA60FF007DD040 /* api.swift in Sources */,
+				35A63FFF1ACADD9C005BA8EB /* actions.swift in Sources */,
 				353DF1BD1AC99289001BDF01 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
