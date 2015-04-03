@@ -22,6 +22,11 @@ class Api {
         get{ return OAuthTokenStruct.token }
         set{ OAuthTokenStruct.token = newValue }
     }
+    private struct BaseUrlStringStruct{ static var url = "http://www.mocky.io" }
+    class var BaseUrlString: String {
+        get{ return BaseUrlStringStruct.url }
+        set{ BaseUrlStringStruct.url = newValue }
+    }
     
     class func request(URLRequest: URLRequestConvertible) -> ApiRequest {
         return ApiRequest {(progress, fulfill, reject, configure) in
@@ -60,8 +65,7 @@ class Api {
     }
     
     enum ToDoItemRouter: URLRequestConvertible {
-        static let baseURLString = "http://www.mocky.io"
-        
+
         case Create([String: AnyObject])
         case Read(String)
         case Update(String, [String: AnyObject])
@@ -96,7 +100,7 @@ class Api {
         // MARK: URLRequestConvertible
         
         var URLRequest: NSURLRequest {
-            let URL = NSURL(string: ToDoItemRouter.baseURLString)!
+            let URL = NSURL(string: Api.BaseUrlString)!
             let mutableURLRequest = NSMutableURLRequest(URL: URL.URLByAppendingPathComponent(path))
             mutableURLRequest.HTTPMethod = method.rawValue
             
