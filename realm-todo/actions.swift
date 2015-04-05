@@ -23,14 +23,15 @@ class Actions {
         func dispatch() -> ActionTask {
             println("Actions.ReadTodos#dispatch")
             return ActionTask { (progress, fulfill, reject, configure) -> Void in
-                Api.TodoItem.Read("myName").success { (value: JSON?) -> Void in
-                    var json = value?.arrayObject as [[String: AnyObject]]
-                    let realm = RLMRealm.defaultRealm()
-                    realm.beginWriteTransaction()
-                    for item in json {
-                        ToDoItem.createOrUpdateInDefaultRealmWithObject(item)
-                    }
-                    realm.commitWriteTransaction()
+                Api.TodoItem.Read().success { (value: JSON) -> Void in
+                    //
+                    var json = value.dictionaryObject as [String: AnyObject]?
+                    //let realm = RLMRealm.defaultRealm()
+                    //realm.beginWriteTransaction()
+                    //for item in json {
+                    //    ToDoItem.createOrUpdateInDefaultRealmWithObject(item)
+                    //}
+                    //realm.commitWriteTransaction()
                 }.failure { (error, isCancelled) -> Void in
                         return
                 }

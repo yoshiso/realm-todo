@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1C15E347B61702AEF25C7BBA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 032E2AB04D54E464E2FE42B7 /* libPods.a */; };
+		352464671AD0B6F4008ECF41 /* URITemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352464661AD0B6F4008ECF41 /* URITemplate.swift */; };
 		3532B6BE1ACA43F9008E0F5E /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3532B6A21ACA43DE008E0F5E /* Nimble.framework */; };
 		3532B6BF1ACA43F9008E0F5E /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3532B6B31ACA43EC008E0F5E /* Quick.framework */; };
 		353DF1BD1AC99289001BDF01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353DF1BC1AC99289001BDF01 /* AppDelegate.swift */; };
@@ -258,6 +259,7 @@
 
 /* Begin PBXFileReference section */
 		032E2AB04D54E464E2FE42B7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		352464661AD0B6F4008ECF41 /* URITemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URITemplate.swift; sourceTree = "<group>"; };
 		3532B69A1ACA43DE008E0F5E /* Nimble.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Nimble.xcodeproj; path = Vendor/Nimble/Nimble.xcodeproj; sourceTree = SOURCE_ROOT; };
 		3532B6A91ACA43EB008E0F5E /* Quick.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Quick.xcodeproj; path = Vendor/Quick/Quick.xcodeproj; sourceTree = SOURCE_ROOT; };
 		353DF1B71AC99289001BDF01 /* realm-todo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "realm-todo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -374,6 +376,7 @@
 				353DF1E41AC9943A001BDF01 /* ToDoItem.swift */,
 				35EA5ED91ACA60FF007DD040 /* api.swift */,
 				35A63FFE1ACADD9C005BA8EB /* actions.swift */,
+				352464661AD0B6F4008ECF41 /* URITemplate.swift */,
 			);
 			path = "realm-todo";
 			sourceTree = "<group>";
@@ -776,6 +779,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				352464671AD0B6F4008ECF41 /* URITemplate.swift in Sources */,
 				353DF1E71AC99664001BDF01 /* AddViewController.swift in Sources */,
 				353DF1DF1AC9932E001BDF01 /* RLMSupport.swift in Sources */,
 				353DF1E11AC993BE001BDF01 /* TableViewController.swift in Sources */,
@@ -948,6 +952,7 @@
 				);
 				INFOPLIST_FILE = "realm-todo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MACH_O_TYPE = mh_execute;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -965,6 +970,7 @@
 				);
 				INFOPLIST_FILE = "realm-todo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MACH_O_TYPE = mh_execute;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

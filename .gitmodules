@@ -15,3 +15,6 @@
 [submodule "Vendor/SwiftTask"]
 	path = Vendor/SwiftTask
 	url = https://github.com/ReactKit/SwiftTask.git
+[submodule "Vendor/URITemplate"]
+	path = Vendor/URITemplate
+	url = https://github.com/kylef/URITemplate.swift

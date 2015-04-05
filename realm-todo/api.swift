@@ -9,11 +9,12 @@
 import Alamofire
 import SwiftyJSON
 import SwiftTask
+import URITemplate
+
+typealias ApiRequest = Task<Int,JSON,NSError>
 
 
 class Api {
-    
-    typealias ApiRequest = Task<Int,JSON,NSError>
     
     // workaround tips 
     // After updated swift 1.2, use ( static var someVariable: Int = 0 ) instead
@@ -22,101 +23,159 @@ class Api {
         get{ return OAuthTokenStruct.token }
         set{ OAuthTokenStruct.token = newValue }
     }
-    private struct BaseUrlStringStruct{ static var url = "http://www.mocky.io" }
+    private struct BaseUrlStringStruct{ static var url = "http://demo0664227.mockable.io" }
     class var BaseUrlString: String {
         get{ return BaseUrlStringStruct.url }
         set{ BaseUrlStringStruct.url = newValue }
     }
     
-    class func request(URLRequest: URLRequestConvertible) -> ApiRequest {
-        return ApiRequest {(progress, fulfill, reject, configure) in
-            let alam = Alamofire.request(URLRequest).responseJSON({ (req, res, data, err) -> Void in
-                if let err = err {
-                    println("ERROR: \(err)")
-                    reject(err)
-                    return
-                }
-                let json = JSON(data!)
-                println("Response: ")
-                println(json)
-                fulfill(json)
-            })
-            configure.pause  = { alam.suspend() }
-            configure.resume = { alam.resume()  }
-            configure.cancel = { alam.cancel()  }
+    class func defaultURLRequest(let path: String, let method: Alamofire.Method) -> NSMutableURLRequest {
+        let URL = NSURL(string: Api.BaseUrlString)!
+        let mutableURLRequest = NSMutableURLRequest(URL: URL.URLByAppendingPathComponent(path))
+        
+        mutableURLRequest.HTTPMethod = method.rawValue
+        mutableURLRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        mutableURLRequest.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        if let token = Api.OAuthToken {
+            mutableURLRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
+        
+        return mutableURLRequest
     }
     
-    class TodoItem {
-        
-        
-        class func Read(username: String) -> ApiRequest {
-            return Api.request(Api.ToDoItemRouter.Read(username))
+    class func generateURI(template: String, params: [String: AnyObject]?) -> String {
+        if let params = params {
+            return URITemplate(template: template).expand(params)
         }
-        
-        class func Create(params: [String: AnyObject]) -> ApiRequest {
-            return Api.request(Api.ToDoItemRouter.Create(params))
-        }
-        
-        class func Update(username: String, params: [String: AnyObject]) -> ApiRequest {
-            return Api.request(Api.ToDoItemRouter.Update(username, params))
-        }
-        
+        return template
     }
     
-    enum ToDoItemRouter: URLRequestConvertible {
-
-        case Create([String: AnyObject])
-        case Read(String)
-        case Update(String, [String: AnyObject])
-        case Destroy(String)
+    class Base {
         
-        var method: Alamofire.Method {
-            switch self {
-            case .Create:
-                return .POST
-            case .Read:
-                return .GET
-            case .Update:
-                return .PUT
-            case .Destroy:
-                return .DELETE
+        class func request(URLRequest: URLRequestConvertible) -> ApiRequest {
+            return ApiRequest {(progress, fulfill, reject, configure) in
+                let alam = Alamofire.request(URLRequest)
+                                    .validate()
+                                    .responseJSON({ (req, res, data, err) -> Void in
+                    if let err = err {
+                        println("ERROR: \(err)")
+                        reject(self.buildErr(res, data: data, err: err))
+                        return
+                    }
+                    let json = JSON(data!)
+                    println("Response: ")
+                    println(json)
+                    fulfill(json)
+                })
+                debugPrintln(alam)
+                configure.pause  = { alam.suspend() }
+                configure.resume = { alam.resume()  }
+                configure.cancel = { alam.cancel()  }
             }
         }
         
-        var path: String {
-            switch self {
-            case .Create:
-                return "/v2/551a34139650aa38160a97e0"
-            case .Read(let username):
-                return "/v2/551a41899650aa84170a97e7"
-            case .Update(let username, _):
-                return "/v2/551a41899650aa84170a97e7"
-            case .Destroy(let username):
-                return "/users/\(username)"
+        class func buildErr(res: NSHTTPURLResponse?, data: AnyObject?, err: NSError?) -> NSError {
+            var userInfo = [String: AnyObject]()
+            if let res = res {
+                userInfo["statusCode"] = res.statusCode
+            }else{
+                userInfo["statusCode"] = 502
             }
+            if let data: AnyObject = data {
+                userInfo["response"] = data
+            }
+            var error = NSError(domain: "com.aries.error", code: -1, userInfo: userInfo)
+            debugPrintln("ERROR:")
+            debugPrintln(error)
+            return error
         }
         
-        // MARK: URLRequestConvertible
+    }
+    
+    class TodoItem: Base {
         
-        var URLRequest: NSURLRequest {
-            let URL = NSURL(string: Api.BaseUrlString)!
-            let mutableURLRequest = NSMutableURLRequest(URL: URL.URLByAppendingPathComponent(path))
-            mutableURLRequest.HTTPMethod = method.rawValue
+        // case nil object
+        class func Read() -> ApiRequest {
+            var params: [String: AnyObject]? = nil
+            return request(Router.Read(params))
+        }
+        
+        // case with all template param
+        class func Create(username: String, password: String? = nil) -> ApiRequest {
+            var params = [String: AnyObject]()
             
-            if let token = Api.OAuthToken {
-                mutableURLRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            params["username"] = username
+            if let password = password {
+                params["password"] = password
             }
-            switch self {
-            case .Create(let parameters):
-                return Alamofire.ParameterEncoding.JSON.encode(mutableURLRequest, parameters: parameters).0
-            case .Update(_, let parameters):
-                return Alamofire.ParameterEncoding.JSON.encode(mutableURLRequest, parameters: parameters).0
-            default:
-                return mutableURLRequest
+            
+            return request(Router.Create(params))
+        }
+        
+        // case with chipped template param
+        class func Update(id: String, password: String) -> ApiRequest {
+            var params = [String: AnyObject]()
+            
+            params["id"] = id
+            
+            return request(Router.Update(params))
+        }
+        
+        private enum Router: URLRequestConvertible {
+            
+            case Read([String: AnyObject]?)
+            case Create([String: AnyObject]?)
+            case Update([String: AnyObject]?)
+            case Destroy([String: AnyObject]?)
+            
+            var method: Alamofire.Method {
+                switch self {
+                case .Create:
+                    return .GET
+                case .Read:
+                    return .GET
+                case .Update:
+                    return .GET
+                case .Destroy:
+                    return .GET
+                }
+            }
+            
+            var path: String {
+                switch self {
+                case .Create(let params):
+                    return Api.generateURI("/{username}",params: params)
+                case .Read(let params):
+                    return Api.generateURI("/messages",params: params)
+                case .Update(let params):
+                    return Api.generateURI("/messages/{id}",params: params)
+                case .Destroy(let params):
+                    return Api.generateURI("/user/{username}",params: params)
+                }
+            }
+            
+            // MARK: URLRequestConvertible
+            
+            var URLRequest: NSURLRequest {
+                switch self {
+                case .Create(let parameters):
+                    return Alamofire.ParameterEncoding.JSON.encode(Api.defaultURLRequest(path, method: method), parameters: parameters).0
+                case .Read(let parameters):
+                    return Alamofire.ParameterEncoding.JSON.encode(Api.defaultURLRequest(path, method: method), parameters: parameters).0
+                case .Destroy(let parameters):
+                    return Alamofire.ParameterEncoding.JSON.encode(Api.defaultURLRequest(path, method: method), parameters: parameters).0
+                case .Update(let parameters):
+                    return Alamofire.ParameterEncoding.JSON.encode(Api.defaultURLRequest(path, method: method), parameters: parameters).0
+                default:
+                    return Api.defaultURLRequest(path, method:method)
+                }
             }
         }
+
     }
+    
+
     
     
 }
