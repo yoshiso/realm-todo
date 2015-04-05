@@ -7,26 +7,31 @@
 //
 
 import Alamofire
-import SwiftyJSON
 import SwiftTask
 import URITemplate
 
-typealias ApiRequest = Task<Int,JSON,NSError>
+typealias ApiResponse = Task<Int,AnyObject,NSError>
 
+protocol ApiDelegate {
+    func customReqeust(request: NSMutableURLRequest) -> NSMutableURLRequest
+    func onDefaultSuccess(response: AnyObject) -> AnyObject
+    func onDefaultFailure(err: NSError) -> NSError
+}
 
 class Api {
     
-    // workaround tips 
-    // After updated swift 1.2, use ( static var someVariable: Int = 0 ) instead
-    private struct OAuthTokenStruct{ static var token: String? }
-    class var OAuthToken: String? {
-        get{ return OAuthTokenStruct.token }
-        set{ OAuthTokenStruct.token = newValue }
-    }
-    private struct BaseUrlStringStruct{ static var url = "http://demo0664227.mockable.io" }
+    private struct BaseUrlStringStruct{ static var url = "http://localhost:3000" }
     class var BaseUrlString: String {
         get{ return BaseUrlStringStruct.url }
         set{ BaseUrlStringStruct.url = newValue }
+    }
+
+    // workaround tips
+    // After updated swift 1.2, use ( static var someVariable: Int = 0 ) instead
+    private struct delegateStruct{ static var detegator: ApiDelegate? }
+    class var delegate: ApiDelegate? {
+        get{ return delegateStruct.detegator }
+        set{ delegateStruct.detegator = newValue }
     }
     
     class func defaultURLRequest(let path: String, let method: Alamofire.Method) -> NSMutableURLRequest {
@@ -37,8 +42,8 @@ class Api {
         mutableURLRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         mutableURLRequest.setValue("application/json", forHTTPHeaderField: "Accept")
         
-        if let token = Api.OAuthToken {
-            mutableURLRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        if let delegate = self.delegate?{
+            return delegate.customReqeust(mutableURLRequest)
         }
         
         return mutableURLRequest
@@ -53,26 +58,47 @@ class Api {
     
     class Base {
         
-        class func request(URLRequest: URLRequestConvertible) -> ApiRequest {
-            return ApiRequest {(progress, fulfill, reject, configure) in
+        class func request(URLRequest: URLRequestConvertible) -> ApiResponse {
+            return ApiResponse {(progress, fulfill, reject, configure) in
                 let alam = Alamofire.request(URLRequest)
                                     .validate()
                                     .responseJSON({ (req, res, data, err) -> Void in
+
                     if let err = err {
-                        println("ERROR: \(err)")
                         reject(self.buildErr(res, data: data, err: err))
                         return
                     }
-                    let json = JSON(data!)
-                    println("Response: ")
-                    println(json)
-                    fulfill(json)
+                    fulfill(data!)
                 })
                 debugPrintln(alam)
-                configure.pause  = { alam.suspend() }
-                configure.resume = { alam.resume()  }
-                configure.cancel = { alam.cancel()  }
-            }
+                configure.pause  = { [weak alam] in if let alam = alam { alam.suspend() } }
+                configure.resume = { [weak alam] in if let alam = alam { alam.resume() }  }
+                configure.cancel = { [weak alam] in if let alam = alam { alam.cancel() }  }
+            }.then({ (data, errorInfo) -> ApiResponse in
+                return ApiResponse { (progress, fulfill, reject, configure) in
+                    if(errorInfo == nil){
+                        if let delegate = Api.delegate {
+                            let newData: AnyObject = delegate.onDefaultSuccess(data!)
+                            fulfill(newData)
+                            return
+                        }
+                        fulfill(data!)
+                        return
+                    }else{
+                        let (err, isCancelled) = errorInfo!
+                        if let err = err {
+                            if let delegate = Api.delegate{
+                                let newErr = delegate.onDefaultFailure(err)
+                                reject(newErr)
+                                return
+                            }
+                            reject(err)
+                            return
+                        }
+                    }
+                }
+
+            })
         }
         
         class func buildErr(res: NSHTTPURLResponse?, data: AnyObject?, err: NSError?) -> NSError {
@@ -85,39 +111,56 @@ class Api {
             if let data: AnyObject = data {
                 userInfo["response"] = data
             }
+            if let err = err {
+                userInfo["originalError"] = err
+            }
             var error = NSError(domain: "com.aries.error", code: -1, userInfo: userInfo)
-            debugPrintln("ERROR:")
-            debugPrintln(error)
             return error
         }
         
     }
-    
+        
     class TodoItem: Base {
         
         // case nil object
-        class func Read() -> ApiRequest {
+        class func Read() -> ApiResponse {
             var params: [String: AnyObject]? = nil
             return request(Router.Read(params))
         }
         
         // case with all template param
-        class func Create(username: String, password: String? = nil) -> ApiRequest {
+        class func Create(name: String, finished: Bool = false) -> ApiResponse {
             var params = [String: AnyObject]()
             
-            params["username"] = username
-            if let password = password {
-                params["password"] = password
-            }
+            var todo = [String: AnyObject]()
+            todo["name"] = name
+            todo["finished"]  = finished
+            
+            params["todo"] = todo
             
             return request(Router.Create(params))
         }
         
         // case with chipped template param
-        class func Update(id: String, password: String) -> ApiRequest {
+        class func Show(id: Int) -> ApiResponse {
             var params = [String: AnyObject]()
             
             params["id"] = id
+            
+            return request(Router.Show(params))
+        }
+        
+        class func Update(id: Int, name: String, finished: Bool) -> ApiResponse {
+            var params = [String: AnyObject]()
+            
+            var todo = [String: AnyObject]()
+            todo["id"]        = id
+            todo["name"]      = name
+            todo["finished"]  = finished
+            
+            params["id"] = id
+            
+            params["todo"] = todo
             
             return request(Router.Update(params))
         }
@@ -126,32 +169,32 @@ class Api {
             
             case Read([String: AnyObject]?)
             case Create([String: AnyObject]?)
+            case Show([String: AnyObject]?)
             case Update([String: AnyObject]?)
-            case Destroy([String: AnyObject]?)
             
             var method: Alamofire.Method {
                 switch self {
                 case .Create:
-                    return .GET
+                    return .POST
                 case .Read:
                     return .GET
+                case .Show:
+                    return .GET
                 case .Update:
-                    return .GET
-                case .Destroy:
-                    return .GET
+                    return .PUT
                 }
             }
             
             var path: String {
                 switch self {
                 case .Create(let params):
-                    return Api.generateURI("/{username}",params: params)
+                    return Api.generateURI("/todos",params: params)
                 case .Read(let params):
-                    return Api.generateURI("/messages",params: params)
+                    return Api.generateURI("/todos",params: params)
+                case .Show(let params):
+                    return Api.generateURI("/todos/{id}",params: params)
                 case .Update(let params):
-                    return Api.generateURI("/messages/{id}",params: params)
-                case .Destroy(let params):
-                    return Api.generateURI("/user/{username}",params: params)
+                    return Api.generateURI("/todos/{id}",params: params)
                 }
             }
             
@@ -162,11 +205,11 @@ class Api {
                 case .Create(let parameters):
                     return Alamofire.ParameterEncoding.JSON.encode(Api.defaultURLRequest(path, method: method), parameters: parameters).0
                 case .Read(let parameters):
-                    return Alamofire.ParameterEncoding.JSON.encode(Api.defaultURLRequest(path, method: method), parameters: parameters).0
-                case .Destroy(let parameters):
-                    return Alamofire.ParameterEncoding.JSON.encode(Api.defaultURLRequest(path, method: method), parameters: parameters).0
+                    return Alamofire.ParameterEncoding.URL.encode(Api.defaultURLRequest(path, method: method), parameters: parameters).0
                 case .Update(let parameters):
                     return Alamofire.ParameterEncoding.JSON.encode(Api.defaultURLRequest(path, method: method), parameters: parameters).0
+                case .Show(let parameters):
+                    return Alamofire.ParameterEncoding.URL.encode(Api.defaultURLRequest(path, method: method), parameters: parameters).0
                 default:
                     return Api.defaultURLRequest(path, method:method)
                 }

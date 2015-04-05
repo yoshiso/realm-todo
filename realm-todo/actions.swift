@@ -12,26 +12,53 @@ import Realm
 
 public typealias ActionTask = Task<Int,AnyObject,NSError>
 
-public protocol ActionProtocol {
-    func dispatch() -> ActionTask
-}
 
 class Actions {
     
-    class ReadTodos {
+    class Base {
         
-        func dispatch() -> ActionTask {
-            println("Actions.ReadTodos#dispatch")
+        init() {
+            dispatch({
+                self.action()
+            })
+        }
+        
+        func dispatch(action: ()-> ActionTask) -> Void {
+            println("Actions.\(className())#dispatch start")
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                action().success { (value:AnyObject) in
+                    println("Actions.\(self.className())#dispatch end")
+                    
+                }
+                return
+            })
+        }
+        
+        func className() -> String {
+           return NSStringFromClass(self.dynamicType).componentsSeparatedByString(".").last! as String
+        }
+        
+        func action() -> ActionTask {
+            // over ride me!
+            return ActionTask(value: "override me")
+        }
+    }
+    
+    class ReadTodos: Base {
+        
+        override func action() -> ActionTask {
             return ActionTask { (progress, fulfill, reject, configure) -> Void in
-                Api.TodoItem.Read().success { (value: JSON) -> Void in
-                    //
-                    var json = value.dictionaryObject as [String: AnyObject]?
-                    //let realm = RLMRealm.defaultRealm()
-                    //realm.beginWriteTransaction()
-                    //for item in json {
-                    //    ToDoItem.createOrUpdateInDefaultRealmWithObject(item)
-                    //}
-                    //realm.commitWriteTransaction()
+                Api.TodoItem.Read().success { (value: AnyObject) -> Void in
+                    
+                    let items = value as [[String:AnyObject]]
+                    
+                    let realm = RLMRealm.defaultRealm()
+                    realm.beginWriteTransaction()
+                    for item in items {
+                        ToDoItem.createOrUpdateInDefaultRealmWithObject(item)
+                    }
+                    realm.commitWriteTransaction()
+                    fulfill(items)
                 }.failure { (error, isCancelled) -> Void in
                         return
                 }
@@ -41,7 +68,7 @@ class Actions {
         
     }
     
-    class CreateTodo: ActionProtocol {
+    class CreateTodo {
         
         private let name: String
         

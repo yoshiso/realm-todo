@@ -12,10 +12,11 @@ import SwiftyJSON
 import Realm
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, ApiDelegate {
 
     var window: UIWindow?
-
+    var OAuthToken: String?
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         // Migration
@@ -41,11 +42,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = nc
         window?.makeKeyAndVisible()
         
-        Actions.ReadTodos().dispatch()
+        Api.delegate = self
+        
+        let delay = 5.0 * Double(NSEC_PER_SEC)
+        let time  = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+        dispatch_after(time, dispatch_get_main_queue(), {
+            self.OAuthToken = "exist"
+        })
+        
+        Actions.ReadTodos()
         
         return true
     }
-
+    
+    func waitForToken() {
+        while (self.OAuthToken == nil) {
+            NSRunLoop.currentRunLoop().runMode(NSDefaultRunLoopMode,
+                beforeDate: NSDate(timeIntervalSinceNow: 0.1))
+        }
+    }
+    
+    func onDefaultFailure(err: NSError) -> NSError {
+        debugPrintln(err)
+        return err
+    }
+    
+    func onDefaultSuccess(response: AnyObject) -> AnyObject {
+        debugPrintln(response)
+        return response
+    }
+    
+    func customReqeust(request: NSMutableURLRequest) -> NSMutableURLRequest {
+        
+        println("start waiting for token")
+        self.waitForToken()
+        println("end waiting for token")
+        
+        debugPrintln(request)
+        
+        
+        return request
+    }
+    
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.

@@ -33,6 +33,7 @@
 		35EA5EA91ACA4A2D007DD040 /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353DF1E41AC9943A001BDF01 /* ToDoItem.swift */; };
 		35EA5EDA1ACA60FF007DD040 /* api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EA5ED91ACA60FF007DD040 /* api.swift */; };
 		35EA5EDB1ACA60FF007DD040 /* api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EA5ED91ACA60FF007DD040 /* api.swift */; };
+		35EE7B5B1AD1038200B40881 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EE7B5A1AD1038200B40881 /* Utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -282,6 +283,7 @@
 		35EA5EB91ACA58CC007DD040 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Vendor/Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		35EA5EC91ACA5952007DD040 /* SwiftyJSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftyJSON.xcodeproj; path = Vendor/SwiftyJSON/SwiftyJSON.xcodeproj; sourceTree = "<group>"; };
 		35EA5ED91ACA60FF007DD040 /* api.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = api.swift; sourceTree = "<group>"; };
+		35EE7B5A1AD1038200B40881 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		4DD24C941E4A7EEE32787BAD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		7ECE6BD9495D6A8C978877C7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -377,6 +379,7 @@
 				35EA5ED91ACA60FF007DD040 /* api.swift */,
 				35A63FFE1ACADD9C005BA8EB /* actions.swift */,
 				352464661AD0B6F4008ECF41 /* URITemplate.swift */,
+				35EE7B5A1AD1038200B40881 /* Utils.swift */,
 			);
 			path = "realm-todo";
 			sourceTree = "<group>";
@@ -781,6 +784,7 @@
 			files = (
 				352464671AD0B6F4008ECF41 /* URITemplate.swift in Sources */,
 				353DF1E71AC99664001BDF01 /* AddViewController.swift in Sources */,
+				35EE7B5B1AD1038200B40881 /* Utils.swift in Sources */,
 				353DF1DF1AC9932E001BDF01 /* RLMSupport.swift in Sources */,
 				353DF1E11AC993BE001BDF01 /* TableViewController.swift in Sources */,
 				353DF1E51AC9943A001BDF01 /* ToDoItem.swift in Sources */,

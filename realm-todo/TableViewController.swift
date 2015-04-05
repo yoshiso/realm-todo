@@ -40,6 +40,7 @@ class TableViewController: UITableViewController {
             self.tableView.reloadData()
             println("TABLE RELOADED")
         })
+        println("START WATCH REALM")
     }
     
     override func viewWillDisappear(animated: Bool) {
